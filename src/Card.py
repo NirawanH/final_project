@@ -26,30 +26,13 @@ class Card:
             return True
         return self.deadline > datetime.now()
     
-#Set time left of the card        
-    def time_left(self):
-        if self.deadline:
-            return self.deadline - datetime.now()
-        return None
-    
     def __str__(self):
-        deadline_str = "No deadline" if self.deadline is None else self.deadline.strftime('%a %d-%b-%Y %H:%M')
+        if self.deadline is None: 
+            deadline_str = "No deadline" 
+        else:
+            deadline_str = self.deadline.strftime('%a %d-%b-%Y %H:%M')
         return f"Task: {self.title} \nDescription: {self.description} \nDeadline: {deadline_str}"
-    
-# task = Card("Complete project", "Finish the Python Assignment")    
-# task.set_deadline(day=1, month=6, year=2025, hour=14)
-# print(task)
-
-if __name__ == "__main__":
-    sample = Card("Example Task", "Just testing")
-    sample.set_deadline(1, 6, 2025, 14)
-
-    if not sample.is_deadline_valid():
-        print("Deadline is already past!")
-    else:
-        print(sample)
-
-
+     
 
         
 

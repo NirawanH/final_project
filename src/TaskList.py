@@ -1,16 +1,17 @@
+from Card import Card
 class TaskList:
     def __init__(self, list_name):
         self.list_name = list_name
         self.cards = []
     
-    def add_card(self, card):
-        self.cards.append(card)
+    def add_card(self, Card):
+        self.cards.append(Card)
 
-    def delete_card(self, card_id):
+    def delete_card(self, id_card):
         for card in self.cards:
-            if card.id == card_id:
+            if id_card == id_card:
                 self.cards.remove(card)
-                print(f"Card ID {card_id} deleted.")
+                print(f"Card ID {id_card} deleted.")
                 return
         print("No card found.") 
 
