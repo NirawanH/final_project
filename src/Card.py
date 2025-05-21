@@ -1,4 +1,5 @@
 from datetime import datetime
+
 class Card:
     id_card = 1
     def __init__(self, title, description= "", deadline = None):
@@ -24,14 +25,23 @@ class Card:
     def is_deadline_valid(self):
         if self.deadline is None:
             return True
-        return self.deadline > datetime.now()
+        elif self.deadline > datetime.now():
+            return True
+        else:
+            return False
     
     def __str__(self):
         if self.deadline is None: 
             deadline_str = "No deadline" 
         else:
             deadline_str = self.deadline.strftime('%a %d-%b-%Y %H:%M')
+            if self.deadline < datetime.now():
+                deadline_str = "Overdue!!! " + self.deadline.strftime('%a %d-%b-%Y %H:%M')
         return f"Task: {self.title} \nDescription: {self.description} \nDeadline: {deadline_str}"
+    
+card = Card("Final Project", "create an app")
+deadline = card.set_deadline(19,5,2025)
+print(card)
      
 
         
