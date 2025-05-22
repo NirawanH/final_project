@@ -1,22 +1,33 @@
 from Card import Card
+
 class TaskList:
-    def __init__(self, list_name):
+    def __init__(self, list_name: str):
         self.list_name = list_name
         self.cards = []
     
-    def add_card(self, Card):
-        self.cards.append(Card)
+    def add_card(self, card: Card):
+        self.cards.append(card)
 
-    def delete_card(self, id_card):
+    def delete_card(self, card_id: str) -> bool:
+        for i, card in enumerate(self.cards):
+            if card.card_id == card_id:
+                self.cards.remove(i)
+                print(f"Card ID {card_id} deleted.")
+                return True
+        print("No card found.")
+        return False 
+    
+    def get_card(self, card_id: str):
         for card in self.cards:
-            if id_card == id_card:
-                self.cards.remove(card)
-                print(f"Card ID {id_card} deleted.")
-                return
-        print("No card found.") 
-
-    def move_card_to_another_list(self, card, target_list):
-        if card in self.cards:
-            self.cards.remove(card)
-            target_list.add_card(card)
+            if card.card_id == card_id:
+                return card
+        return None
+    
+    def list_card(self):
+        if not self.cards:
+            print(f"No cards in list '{self.list_name}'.")
+        else:
+            print(f"Cards in list '{self.list_name}'")
+            for card in self.cards:
+                print(f"- {card}")
 

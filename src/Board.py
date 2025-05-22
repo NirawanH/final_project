@@ -1,25 +1,24 @@
 from Card import Card
 from TaskList import TaskList
+from tabulate import tabulate
+
 class Board():
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, board_name="My Board"):
+        self.board_name = board_name
         self.task_lists = []
 
-    def add_task_list(self, tasklist):
-        self.task_lists.append(tasklist)
+    def change_board_name(self, new_board_name:str):
+        self.board_name = new_board_name
 
-    def delete_task_list(self, name):
-        found = False
-        index = 0
-        for tasklist in self.task_lists:
-             if tasklist.name == name:
-                 del self.task_lists[index]
-                 found = True
-                 break
-             index += 1
+    def add_task_list(self, task_list: TaskList):
+        self.task_lists.append(task_list)
 
-        if not found:
-            print(f"No task list found with the name '{name}'.")
+    def delete_task_list(self, list_name: str) -> bool:
+        for i, task_list in self.task_lists:
+             if task_list.board_name == list_name:
+                 del self.task_lists[i]
+                 return True
+        return False
     
     def move_task_list(self, from_index, to_index):
         if 0<= from_index < len(self.task_lists)
