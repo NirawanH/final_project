@@ -18,8 +18,11 @@ class Card:
         self.description = new_description
 
 #Set deadline of the card
-    def set_deadline(self, day, month, year, hour=23, minute=59):
-        self.deadline = datetime(year, month, day, hour, minute)
+    def set_deadline(self, date_str: str):
+        try:
+            self.deadline = datetime.strptime(date_str, "%Y-%m-%d %H:%M")
+        except ValueError:
+            print("Invalid format. Please use YYYY-MM-DD HH:MM")
 
 #Deadline is valid or not
     def is_deadline_valid(self):
