@@ -1,7 +1,9 @@
 # Ignore everything
 *
 src/__pycache__
+src/__pycache__/**/* 
 tests/__pycache__
+tests/__pycache__/**/*
 
 # But not these!
 !.gitignore
