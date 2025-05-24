@@ -2,13 +2,31 @@ from src.Card import Card
 from datetime import date, datetime, timedelta
 
 
-#1. Test class Card 
+#Test Card
 def test_Card():
     card = Card("dishes", "do the dishes!")
     card.deadline = datetime(2025,5,25)
     assert card.title == "dishes"
     assert card.description == "do the dishes!"
     assert card.deadline == datetime(2025,5,25)
+
+#Test title is str
+def test_title_is_str():
+    card = Card(222)
+    assert isinstance(card.title, str)
+
+#Test ID
+def test_card_id():
+    Card.id_counter = 1
+    card1 = Card("One")
+    card2 = Card("Two")
+    assert card1.card_id == 1
+    assert card2.card_id == 2
+
+#Test desscription is ""
+def test_card_default_description():
+    card = Card("No description")
+    assert card.description == ""
 
 #Test editing title of the card       
 def test_edit_title():
@@ -28,6 +46,11 @@ def test_set_deadline():
     card.set_deadline("01/05/2025 16:40")
     assert card.deadline is not None
     assert card.deadline.strftime("%d/%m/%Y %H:%M") == "01/05/2025 16:40"
+
+def test_set_deadline_invalid_format():
+    card = Card("OMG")
+    card.set_deadline("24555")
+    assert card.deadline is None
 
 #Deadline is valid or not (This case should show False)
 def test_is_deadline_valid():

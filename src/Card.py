@@ -5,8 +5,8 @@ class Card:
     def __init__(self, title: str, description: str = "", deadline = None):
         self.card_id = Card.id_counter
         Card.id_counter +=1
-        self.title = title
-        self.description = description
+        self.title = str(title)
+        self.description = str(description)
         self.deadline = deadline
 
 #editing title of the card       
