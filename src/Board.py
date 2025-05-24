@@ -1,9 +1,12 @@
 from Card import Card
 from TaskList import TaskList
 from tabulate import tabulate
+import json
+from datetime import datetime
+
 
 class Board():
-    def __init__(self, board_name="My Board"):
+    def __init__(self, board_name="My Board"): 
         self.board_name = board_name
         self.task_lists = []
 
@@ -28,7 +31,7 @@ class Board():
         return False
     
     def view_board(self):
-        print(f"\n=== Board: {self.board_name} ===")
+        print(f"\n\n\n=== Board: {self.board_name} ===")
 
         if not self.task_lists:
             print("No task lists available.")
@@ -43,6 +46,8 @@ class Board():
 
             table = []
             for card in task_list.cards:
+                if isinstance(card.deadline, str):
+                    card.deadline = datetime.fromisoformat(card.deadline)
                 # Format deadline with overdue warning
                 if card.deadline:
                     if card.deadline < datetime.now():
@@ -60,7 +65,7 @@ class Board():
         for task_list in self.task_lists:
             if task_list.list_name == list_name:
                 return task_list
-            return None
+        return None
     
     def find_card(self, card_id: int) -> tuple[TaskList, Card] or tuple[None, None]:
         for task_list in self.task_lists:
@@ -86,3 +91,27 @@ class Board():
         target_list.add_card(card)
         return True
     
+    def to_dict(self):
+        return {
+            "board_name": self.board_name,
+            "task_list": [task_list.to_dict() for task_list in self.task_lists]
+        }
+    
+    def from_dict(data):
+        board = Board(data["board_name"])
+        board.task_lists = [TaskList.from_dict(t) for t in data["task_lists"]]
+        return board
+    
+    def save_to_file(self, filename="board_data.json"):
+        with open(filename, "w") as f:
+            json.dump(self.to_dict(), f, indent=4)
+
+    
+    def load_from_file(filename= "board_data.json"):
+        try:
+            with open(filename, "r") as f:
+                date =  json.load(f)
+                return Board.from_dict(data)
+        except FileNotFoundError:
+            print("No saved board found. Please create a new one.")
+            return Board("My Board")

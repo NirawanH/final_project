@@ -2,6 +2,7 @@ from Card import Card
 from TaskList import TaskList
 from Board import Board
 
+board = Board.load_from_file()
 
 def main():
 
@@ -36,18 +37,39 @@ def main():
                 print(f"List '{list_name}' added.")
 
         elif choice == "4":
-            list_name = input("Enter the list name to delete: ")
-            board.delete_task_list(list_name)
+            print("\nCurrent Task Lists:")
 
+            if not board.task_lists:
+                print("No task lists yet.")
+            else:
+                for i, task_list in enumerate(board.task_lists):
+                    print(f"{i+1}. {task_list.list_name}")
+                try:
+                    index = int(input("Enter the number of the list to delete: "))
+                    if 1 <= index <= len(board.task_lists):
+                        list_name = board.task_lists[index-1].list_name
+                        board.delete_task_list(list_name)
+                    else:
+                        print("Invalid selection.")
+                except ValueError:
+                    print("Please enter a valid number.")
+
+   
         elif choice == "5":
-            list_name = input("Enter the list name to add the card to: ")
             task_list = board.get_list(list_name)
             if not task_list:
                 print("List not found.")
                 continue
+            if task_list:
+                for list in task_list:
+                    print(f"List name(s) to choose: \n{list}")
+                    continue
+            list_name = input("Enter the list name to add the card to: ")
+            
+
             title = input("Enter card title: ")
             description = input("Enter card description: ")
-            deadline = input("Enter deadline (optional): ")
+            deadline = input("Enter deadline (optional: (YYYY-MM-DD HH:MM, leave blank to keep current)): ")
             card = Card(title, description, deadline)
             task_list.add_card(card)
             print(f"Card added with ID [{card.card_id}].")

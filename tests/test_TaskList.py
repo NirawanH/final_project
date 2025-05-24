@@ -1,6 +1,11 @@
 from src.TaskList import TaskList
 from src.Card import Card
 
+def test_tasklist():
+    task_list = TaskList("In progress")
+    assert task_list.list_name == "In progress"
+    assert task_list.cards == []
+
 #Add
 def test_add_card():
     task_list = TaskList("To do")
