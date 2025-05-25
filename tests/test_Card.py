@@ -52,13 +52,6 @@ def test_set_deadline_invalid_format():
     card.set_deadline("24555")
     assert card.deadline is None
 
-#Deadline is valid or not (This case should show False)
-def test_is_deadline_valid():
-    card = Card("Test date")
-    past_date = datetime.now() - timedelta(days=1)
-    date_str = past_date.strftime("%d/%m/%Y %H:%M")
-    card.set_deadline(date_str)
-    assert card.is_deadline_valid() is False
 
 #Test string of the card    
 def test_str_without_deadline():

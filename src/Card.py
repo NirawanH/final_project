@@ -23,15 +23,7 @@ class Card:
             self.deadline = datetime.strptime(date_str, "%d/%m/%Y %H:%M")
         except ValueError:
             print("Invalid format. Please use DD/MM/YYYY HH:MM")
-
-#Deadline is valid or not
-    def is_deadline_valid(self):
-        if self.deadline is None:
-            return True
-        elif self.deadline > datetime.now():
-            return True
-        else:
-            return False
+            
     
     def __str__(self):
         if self.deadline is None: 
@@ -43,22 +35,22 @@ class Card:
         return f"{self.card_id}\nTask: {self.title}\nDescription: {self.description}\nDeadline: {deadline_str}"
     
 
-    def to_dict(self):
-        return {
-            "card_id" : self.card_id,
-            "title": self.title,
-            "description": self.description,
-            "deadline": self.deadline.isoformat() if self.deadline else None
-        }
+    # def to_dict(self):
+    #     return {
+    #         "card_id" : self.card_id,
+    #         "title": self.title,
+    #         "description": self.description,
+    #         "deadline": self.deadline.isoformat() if self.deadline else None
+    #     }
     
-    @staticmethod
-    def from_dict(data):
-        card = Card(data["title"], data["description"])
-        card.card_id = data["card_id"]
-        Card.id_counter = max(Card.id_counter, card.card_id +1)
-        if data["deadline"]:
-            card.deadline = datetime.fromisoformat(data["deadline"])
-        return card
+    # @staticmethod
+    # def from_dict(data):
+    #     card = Card(data["title"], data["description"])
+    #     card.card_id = data["card_id"]
+    #     Card.id_counter = max(Card.id_counter, card.card_id +1)
+    #     if data["deadline"]:
+    #         card.deadline = datetime.fromisoformat(data["deadline"])
+    #     return card
 
 
 
