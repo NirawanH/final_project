@@ -82,3 +82,15 @@ def test_str_with_deadline():
         f"Deadline: {deadline_str}"
     )
     assert str(card) == expected_output
+
+#Test to_dict()/ from_dict()
+def test_card_to_from_dict():
+    card = Card("Test", "Test Test")
+    card.set_deadline("25/06/2025 11:00")
+    data = card.to_dict()
+    save = Card.from_dict(data)
+
+    assert save.title == card.title
+    assert save.description == card.description
+    assert save.deadline == card.deadline
+    assert save.card_id == card.card_id
