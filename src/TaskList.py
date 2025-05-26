@@ -9,6 +9,9 @@ class TaskList:
     def add_card(self, card: Card):
         self.cards.append(card)
 
+    def remove_card(self, card: Card):
+        self.cards.remove(card)
+
     def get_card(self, card_id: int):
         for card in self.cards:
             if card.card_id == card_id:
