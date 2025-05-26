@@ -1,4 +1,4 @@
-from Card import Card
+from src.Card import Card
 from tabulate import tabulate
 
 class TaskList:
@@ -17,18 +17,6 @@ class TaskList:
             if card.card_id == card_id:
                 return card
         return None
-    
-    def list_card(self):
-        if not self.cards:
-            print(f"No cards in list '{self.list_name}'.")
-            return
-        
-        table = []
-        for card in self.cards:
-            table.append([card.card_id, card.title, card.deadline, card.description])
-
-        print(f"List: {self.list_name}")
-        print(tabulate(table, headers=["ID", "Title", "Deadline", "Description"], tablefmt="grid"))
 
 
     # def to_dict(self):

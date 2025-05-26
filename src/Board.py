@@ -1,5 +1,5 @@
-from Card import Card
-from TaskList import TaskList
+from src.Card import Card
+from src.TaskList import TaskList
 from tabulate import tabulate
 import json
 from datetime import datetime
