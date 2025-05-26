@@ -76,26 +76,26 @@ class Board():
                 print(f"{i+1}. {task_list.list_name}")
                 continue
 
-        try:
-            index = int(input("Enter the number of the list to add: "))
-            if 1 <= index <= len(self.task_lists):
-                selected_list = self.task_lists[index - 1]
-                title = input("Enter card title: ")
-                description = input("Enter card description: ")
-                deadline = input("Enter deadline (optional: (YYYY-MM-DD HH:MM, leave blank to keep current)): ")
-                card = Card(title, description, deadline)
-                selected_list.add_card(card)
-            
-            else:
-                print("Invalid list number.")
+            try:
+                index = int(input("Enter the number of the list to add: "))
+                if 1 <= index <= len(self.task_lists):
+                    selected_list = self.task_lists[index - 1]
+                    title = input("Enter card title: ")
+                    description = input("Enter card description: ")
+                    deadline = input("Enter deadline (optional: (YYYY/MM/DD HH:MM, leave blank to keep current)): ")
+                    card = Card(title, description, deadline)
+                    selected_list.add_card(card)
+                
+                else:
+                    print("Invalid list number.")
+                    return False
+                
+            except ValueError:
+                print("Please Enter a valid number.")
                 return False
-            
-        except ValueError:
-            print("Please Enter a valid number.")
-            return False
 
-        print(f"Card added with ID [{card.card_id}].")
-        False        
+            print(f"Card added with ID [{card.card_id}].")
+            False        
 
 #Working on this!!!
     def Edit_card_to_task_list(self) -> bool:
@@ -108,7 +108,7 @@ class Board():
         print(f"Editing card [{card.card_id}]: {card.title}")
         new_title = input("New title (leave blank to keep current): ")
         new_desc = input("New description (leave blank to keep current): ")
-        new_deadline = input("New deadline (YYYY-MM-DD HH:MM, leave blank to keep current): ")
+        new_deadline = input("New deadline (YYYY/MM/DD HH:MM, leave blank to keep current): ")
 
         if new_title:
             card.edit_title(new_title)
@@ -231,7 +231,7 @@ class Board():
     def save_to_file(self, filename="board_data.json"):
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.to_dict(), f, indent=4)
-        print(f"Board saved to {filename}")
+        print(f"\n\nBoard saved to {filename}")
 
     @staticmethod
     def load_from_file(filename="board_data.json"):

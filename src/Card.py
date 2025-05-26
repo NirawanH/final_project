@@ -7,7 +7,7 @@ class Card:
         Card.id_counter +=1
         self.title = str(title)
         self.description = str(description)
-        self.deadline = None
+        self.deadline = deadline
 
         if isinstance(deadline, str):
             self.set_deadline(deadline)
@@ -24,10 +24,14 @@ class Card:
 
 #Set deadline of the card
     def set_deadline(self, date_str: str):
-        try:
-            self.deadline = datetime.strptime(date_str, "%d/%m/%Y %H:%M")
-        except ValueError:
-            print("Invalid format. Please use DD/MM/YYYY HH:MM")
+        for fmt in ("%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M", "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y"):
+            try:
+                self.deadline = datetime.strptime(date_str, fmt)
+                return
+            except ValueError:
+                continue
+        print("Invalid format. Please use DD/MM/YYYY HH:MM")
+        self.deadline = None
             
     
     def __str__(self):
