@@ -19,17 +19,17 @@ class TaskList:
         return None
 
 
-    # def to_dict(self):
-    #     return {
-    #         "list_name" : self.list_name,
-    #         "cards": [card.to_dict() for card in self.cards]
-    #     }
+    def to_dict(self):
+        return {
+            "list_name" : self.list_name,
+            "cards": [card.to_dict() for card in self.cards]
+        }
     
-    # @staticmethod
-    # def from_dict(data):
-    #     task_list = TaskList(data["list_name"])
-    #     task_list.cards = [Card.from_dict(card_data) for card_data in data["cards"]]
-    #     return task_list
+    @staticmethod
+    def from_dict(data):
+        task_list = TaskList(data["list_name"])
+        task_list.cards = [Card.from_dict(card_data) for card_data in data["cards"]]
+        return task_list
     
     
     # def debug_cards(self):

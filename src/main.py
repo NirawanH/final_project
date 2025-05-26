@@ -2,11 +2,11 @@ from Card import Card
 from TaskList import TaskList
 from Board import Board
 
-# board = Board.load_from_file()
+
 
 def main():
 
-    board = Board("My Board")
+    board = Board.load_from_file()
 
     while True:
         print("\n--- Wellcome to the board ---")
@@ -33,6 +33,7 @@ def main():
             board.change_board_name(new_name)
             print("Board name has been changed successfully!")
             print(board)
+            board.save_to_file()
 
 
         elif choice == "3": #print("3. Add a List")
@@ -41,33 +42,41 @@ def main():
             board.add_task_list(TaskList(list_name))
             print(f"List '{list_name}' added.\n\n")
             print(board)
+            board.save_to_file()
+
 
         elif choice == "4": #print("4. Delete a List")
             board.delete_task_list()
+            board.save_to_file()
 
    
         elif choice == "5": #print("5. Add a card")
             board.add_card_to_task_list()
+            board.save_to_file()
                     
             
         elif choice == "6": #print("6. Edit a card")
             print(board)
             board.Edit_card_to_task_list()
+            board.save_to_file()
 
 
         elif choice == "7": #print("7. Delete a card")
             print(board)
             board.delete_card()
+            board.save_to_file()
 
 
         elif choice == "8": #print("8. Move card to another list")
             print(board)
             board.move_card()
             print(board)
+            board.save_to_file()
 
 
         elif choice == "9":  #print("9. Exit")
-            print("Thank you for using the app! See you later!")
+            board.save_to_file()
+            print("Board saved!!! See you later!")
             break
 
         else:

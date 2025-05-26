@@ -21,3 +21,4 @@ __pycache__/
 !src/**/*.py
 !tests/
 !tests/**/*.py
+!requirements.txt

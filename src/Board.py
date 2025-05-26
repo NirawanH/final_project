@@ -2,6 +2,7 @@ from src.Card import Card
 from src.TaskList import TaskList
 from tabulate import tabulate
 import json
+import os
 from datetime import datetime
 
 
@@ -214,5 +215,31 @@ class Board():
         return "\n".join(output)    
     
 
-board = Board()
-print(board)
+    def to_dict(self):
+        return {
+            "board_name": self.board_name,
+            "task_lists": [task_list.to_dict() for task_list in self.task_lists]
+            }
+
+    @staticmethod
+    def from_dict(data):
+        board = Board(data["board_name"])
+        board.task_lists = [TaskList.from_dict(tl) for tl in data["task_lists"]]
+        return board
+    
+
+    def save_to_file(self, filename="board_data.json"):
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(self.to_dict(), f, indent=4)
+        print(f"Board saved to {filename}")
+
+    @staticmethod
+    def load_from_file(filename="board_data.json"):
+        if not os.path.exists(filename):
+            print("No saved board found.")
+            return Board()
+        
+        with open(filename, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return Board.from_dict(data)
+
