@@ -1,21 +1,23 @@
-# Ignore everything
+# =====================================
+# Ignore compiled Python files
+# =====================================
+__pycache__/
+*.py[cod]
+
+# Ignore VSCode workspace files
+*.code-workspace
+
+# =====================================
+# Ignore everything by default
+# =====================================
 *
-src/__pycache__/
-src/__pycache__/**
-src/__pycache__/**/* 
-tests/__pycache__/
-tests/__pycache__/**
-tests/__pycache__/**/*
-tests/myenvironment.code-workspace
-test/*.code-workspace
 
-
-# But not these!
+# But not these files/folders
 !.gitignore
-!src/
-!src/**/*
-!main.py
-!tests/
-!tests/**/*
 !readme.md
 
+# Keep the src and tests folders and their contents
+!src/
+!src/**/*.py
+!tests/
+!tests/**/*.py
