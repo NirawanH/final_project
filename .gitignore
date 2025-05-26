@@ -6,7 +6,7 @@ src/__pycache__/**/*
 tests/__pycache__
 tests/__pycache__/**
 tests/__pycache__/**/*
-tests/myenvironment.code-workspace
+*.code-workspace
 
 # But not these!
 !.gitignore
