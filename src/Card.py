@@ -7,7 +7,12 @@ class Card:
         Card.id_counter +=1
         self.title = str(title)
         self.description = str(description)
-        self.deadline = deadline
+        self.deadline = None
+
+        if isinstance(deadline, str):
+            self.set_deadline(deadline)
+        elif isinstance(deadline, datetime):
+            self.deadline = deadline
 
 #editing title of the card       
     def edit_title(self, new_title: str):
