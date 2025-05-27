@@ -1,34 +1,87 @@
-# Task management board (Trello-Style)
+# Task management Board
 
-A simple project board where you can manage task lists and cards, similar to Trello — built with Python.
+This is a task management board written in Python. You can create task lists (like "To Do", "In Progress", "Done") and add/edit/move cards within those lists — similar to Trello, but entirely in your terminal.
 
 ---
 
 ## Features
 
-- Add / Edit / Delete task lists
-- Add / Edit / Move / Delete cards
-- Display tasks in a tabular format (using `tabulate`)
-- Save/load board state with JSON file
-- Simple command-line interface
+- Add, edit, and delete task lists
+- Add, edit, move, and delete cards
+- Set deadlines for each card
+- Save and load board data using JSON
+- Clean terminal display using `tabulate`
+- Includes unit tests for all core features
 
 ---
 
 ## Requirements
 
-- Python 3.10+ installed.  
+Make sure you have Python 3.10+ installed.  
 Then install the required packages using:
 
 ```bash
 pip install -r requirements.txt
+```
+
+> Tip: It’s recommended to use a virtual environment.
+
+```bash
+# Create and activate a virtual environment (optional)
+python -m venv myenv
+# Windows
+.\myenv\Scripts ctivate
+# macOS/Linux
+source myenv/bin/activate
+```
+
+---
+
+## How to Run
+
+```bash
+python main.py
+```
+
+This will launch the interactive menu in your terminal.
+
+---
+
+## 📁 Project Structure
 
 ```
-Tip: It’s recommended to use a virtual environment.
-    Create and activate a virtual environment (optional)
-        python -m venv myenv
-        
-        #Windows
-        .\myenv\Scripts\activate
-        
-        #macOS/Linux
-        source myenv/bin/activate
+myenvironment/
+├── main.py
+├── requirements.txt
+├── board_data.json           # Automatically saved state
+├── README.md
+├── src/
+│   ├── Card.py
+│   ├── TaskList.py
+│   └── Board.py
+├── tests/
+│   ├── test_Card.py
+│   ├── test_TaskList.py
+│   └── test_Board.py
+```
+
+---
+
+## Running Tests
+
+Tests are written using `pytest`.
+
+```bash
+pytest
+```
+
+---
+
+## Notes
+
+- Uses JSON for data persistence (`board_data.json`)
+- `tabulate` is used to format board/card tables
+- Project is organized using object-oriented design
+
+
+
