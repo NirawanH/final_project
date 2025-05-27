@@ -9,7 +9,8 @@ class Card:
         self.description = str(description)
         self.deadline = deadline
 
-        if isinstance(deadline, str):
+#set deadline to str for JSON
+        if isinstance(deadline, str): 
             self.set_deadline(deadline)
         elif isinstance(deadline, datetime):
             self.deadline = deadline
@@ -24,7 +25,7 @@ class Card:
 
 #Set deadline of the card
     def set_deadline(self, date_str: str):
-        for fmt in ("%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M", "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y"):
+        for fmt in ("%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M", "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y"): #(DD/MM/YYYY HH:MM, YYYY-MM-DD HH:MM, YYYY-MM-DD, YYYY/MM/DD, DD/MM/YYYY)
             try:
                 self.deadline = datetime.strptime(date_str, fmt)
                 return
@@ -52,11 +53,12 @@ class Card:
             "deadline": self.deadline.isoformat() if self.deadline else None
         }
     
-    @staticmethod
+    @staticmethod #group a function logically, does not need access to instance (self) or class (cls) variables or methods
     def from_dict(data):
         card = Card(data["title"], data["description"])
         card.card_id = data["card_id"]
         Card.id_counter = max(Card.id_counter, card.card_id +1)
+        deadline_str = data.get("deadline")
         if data["deadline"]:
             card.deadline = datetime.fromisoformat(data["deadline"])
         return card

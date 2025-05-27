@@ -9,7 +9,7 @@ from datetime import datetime
 class Board():
     def __init__(self, board_name="My Board"): 
         self.board_name = board_name
-        self.task_lists = []
+        self.task_lists = [] #create a list(task_lists) to store task_list
 
     def change_board_name(self, new_board_name:str):
         self.board_name = new_board_name
@@ -29,16 +29,15 @@ class Board():
         try:
             index = int(input("Enter the number of the list to delete: "))
             if 1 <= index <= len(self.task_lists):
-                selected_list = self.task_lists[index - 1]
-
+                selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
                 print(f"The list '{selected_list.list_name}' contains {len(task_list.cards)} card(s).")
-                confirm = input("Are you sure you want to delete it? (y/n): ").lower()
 
+                confirm = input("Are you sure you want to delete it? (y/n): ").lower()
                 if confirm != "y":
                     print("Deletion cancelled.")
                     return False
                 
-                del self.task_lists[index-1]
+                del self.task_lists[index-1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
                 print(f"List '{selected_list.list_name}' deleted.")
                 return True
             
@@ -50,7 +49,7 @@ class Board():
             print("Please Enter a valid number.")
             return False
 
-#Showing task_list inside task_lists 
+#Showing task_list inside task_lists (maybe to improve this funtion later for filter, but now I am using enumerate)
     def get_list(self, list_name: str) -> TaskList or None:
         for task_list in self.task_lists:
             if task_list.list_name == list_name:
@@ -68,7 +67,7 @@ class Board():
     def add_card_to_task_list(self) -> bool:
         print("\nCurrent Task Lists:")
         if not self.task_lists:
-            print("---There is no list.---\n---Please add a list first.---")
+            print("--- There are no task lists ---\n     --- Please add a list before adding a card ---")
             False
 
         else:
@@ -82,7 +81,7 @@ class Board():
                     selected_list = self.task_lists[index - 1]
                     title = input("Enter card title: ")
                     description = input("Enter card description: ")
-                    deadline = input("Enter deadline (optional: (YYYY/MM/DD HH:MM, leave blank to keep current)): ")
+                    deadline = input("Enter deadline (optional: (DD/MM/YYYY HH:MM, leave blank to keep current)): ")
                     card = Card(title, description, deadline)
                     selected_list.add_card(card)
                 
@@ -95,9 +94,9 @@ class Board():
                 return False
 
             print(f"Card added with ID [{card.card_id}].")
-            False        
+            True        
 
-#Working on this!!!
+
     def Edit_card_to_task_list(self) -> bool:
         choose_card_id = int(input("Enter card ID to edit: "))
         task_list, card = self.find_card(choose_card_id)
@@ -203,9 +202,9 @@ class Board():
                 # Format deadline with overdue warning
                 if card.deadline:
                     if card.deadline < datetime.now():
-                        deadline_str = "Overdue! " + card.deadline.strftime('%Y-%m-%d %H:%M')
+                        deadline_str = "Overdue! " + card.deadline.strftime('%a %d/%m/%Y %H:%M')
                     else:
-                        deadline_str = card.deadline.strftime('%Y-%m-%d %H:%M')
+                        deadline_str = card.deadline.strftime('%a %d/%m/%Y %H:%M')
                 else:
                     deadline_str = "None"
 

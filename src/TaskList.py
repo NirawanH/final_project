@@ -4,15 +4,15 @@ from tabulate import tabulate
 class TaskList:
     def __init__(self, list_name: str):
         self.list_name = list_name
-        self.cards = []
+        self.cards = [] #create list to collect card
     
     def add_card(self, card: Card):
-        self.cards.append(card)
+        self.cards.append(card) #add card to the list
 
     def remove_card(self, card: Card):
-        self.cards.remove(card)
+        self.cards.remove(card) #remove card from the list
 
-    def get_card(self, card_id: int):
+    def get_card(self, card_id: int): #call card from card_id
         for card in self.cards:
             if card.card_id == card_id:
                 return card
@@ -22,7 +22,7 @@ class TaskList:
     def to_dict(self):
         return {
             "list_name" : self.list_name,
-            "cards": [card.to_dict() for card in self.cards]
+            "cards": [card.to_dict() for card in self.cards] #dict inside dict with for loop to collect card
         }
     
     @staticmethod
@@ -32,7 +32,5 @@ class TaskList:
         return task_list
     
     
-    # def debug_cards(self):
-    #     for card in self.cards:
-    #         print(f"Card ID: {card.card_id} \nTitle: {card.title}")
+
         
