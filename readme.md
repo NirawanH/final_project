@@ -30,7 +30,7 @@ pip install -r requirements.txt
 # Create and activate a virtual environment (optional)
 python -m venv myenv
 # Windows
-.\myenv\Scripts ctivate
+.\myenv\Scripts\Activate.ps1
 # macOS/Linux
 source myenv/bin/activate
 ```
