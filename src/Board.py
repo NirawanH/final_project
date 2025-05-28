@@ -98,16 +98,22 @@ class Board():
 
 
     def Edit_card_to_task_list(self) -> bool:
-        choose_card_id = int(input("Enter card ID to edit: "))
+        try:
+            choose_card_id = int(input("Enter card ID to edit: "))
+
+        except ValueError:
+            print("Invalid input. Please enter a valid card ID number.")
+            return False
+
         task_list, card = self.find_card(choose_card_id)
         if not card:
             print("Card not found.")
-            False
+            return False
 
         print(f"Editing card [{card.card_id}]: {card.title}")
         new_title = input("New title (leave blank to keep current): ")
         new_desc = input("New description (leave blank to keep current): ")
-        new_deadline = input("New deadline (YYYY/MM/DD HH:MM, leave blank to keep current): ")
+        new_deadline = input("New deadline (DD/MM/YYYY HH:MM, leave blank to keep current): ")
 
         if new_title:
             card.edit_title(new_title)
@@ -116,17 +122,25 @@ class Board():
         if new_deadline:
             card.set_deadline(new_deadline)
         print("Card updated.")
+        return True
  
 
     
     def delete_card(self) -> bool:
-        card_id = int(input("Enter card ID to delete: "))
+        try:
+            card_id = int(input("Enter card ID to delete: "))
+        except ValueError:
+            print("Invalid input. Please enter a valid card ID number.")
+            return False
         found_card = self.find_card(card_id)
         if found_card is not None:
             del found_card
             print(f"Card with ID {card_id} deleted.")
+            return True
         else:
             print(f"No card with ID {card_id} found.")
+            return False
+
     
     def move_card(self) -> bool:
         #1. Choose card_id

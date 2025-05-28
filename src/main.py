@@ -80,7 +80,7 @@ def main():
             break
 
         else:
-            print("Invalid choice. Please select a number between 1 and 8.")
+            print("Invalid choice. Please select a number between 1 and 9.")
 
     print(board)
 

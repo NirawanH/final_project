@@ -51,18 +51,18 @@ This will launch the interactive menu in your terminal.
 
 ```
 myenvironment/
-├── main.py
 ├── requirements.txt
 ├── board_data.json           # Automatically saved state
 ├── README.md
 ├── src/
+│   ├── Board.py
 │   ├── Card.py
-│   ├── TaskList.py
-│   └── Board.py
+│   └── main.py
+│   └── TaskList.py
 ├── tests/
+│   ├── test_Board.py
 │   ├── test_Card.py
-│   ├── test_TaskList.py
-│   └── test_Board.py
+│   └── test_TaskList.py
 ```
 
 ---

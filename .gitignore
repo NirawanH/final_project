@@ -14,7 +14,7 @@ __pycache__/
 
 # But not these files/folders
 !.gitignore
-!readme.md
+!README.md
 
 # Keep the src and tests folders and their contents
 !src/
