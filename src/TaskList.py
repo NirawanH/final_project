@@ -1,4 +1,4 @@
-from src.Card import Card
+from Card import Card
 from tabulate import tabulate
 
 class TaskList:
