@@ -1,4 +1,6 @@
 from src.Card import Card
+from src.TaskList import TaskList
+from src.Board import Board
 from datetime import date, datetime, timedelta
 import pytest
 

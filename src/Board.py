@@ -1,5 +1,5 @@
-from Card import Card
-from TaskList import TaskList
+from src.Card import Card
+from src.TaskList import TaskList
 from tabulate import tabulate
 import json
 import os
@@ -33,7 +33,7 @@ class Board():
                 print(f"The list name '{selected_list.list_name}' is selected")
                 new_list_name = str(input("Enter the new name to change: "))
                 
-                task_list.edit_list_name(new_list_name)
+                selected_list.edit_list_name(new_list_name)
                 print(f"List '{selected_list.list_name}' changed to '{new_list_name}")
                 return True
             
@@ -161,9 +161,10 @@ class Board():
         except ValueError:
             print("Invalid input. Please enter a valid card ID number.")
             return False
-        found_card = self.find_card(card_id)
-        if found_card is not None:
-            del found_card
+        task_list, card = self.find_card(card_id)
+
+        if card:
+            task_list.remove_card(card) 
             print(f"Card with ID {card_id} deleted.")
             return True
         else:
