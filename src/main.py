@@ -13,14 +13,15 @@ def main():
         print("1. View the board")
         print("2. Change board's name")
         print("3. Add a List")
-        print("4. Delete a List")
-        print("5. Add a card")
-        print("6. Edit a card")
-        print("7. Delete a card")
-        print("8. Move card to another list")
-        print("9. Exit")
+        print("4. Edit a list name")
+        print("5. Delete a List")
+        print("6. Add a card")
+        print("7. Edit a card")
+        print("8. Delete a card")
+        print("9. Move card to another list")
+        print("10. Exit")
 
-        choice = str(input("Choose an option (1-9): "))
+        choice = str(input("Choose an option (1-10): "))
         
 
         if choice == "1": #print("1. View the board")
@@ -44,43 +45,47 @@ def main():
             print(board)
             board.save_to_file()
 
+        elif choice == "4": #print("4. Edit a List name")
+            board.edit_task_list()
+            board.save_to_file()
 
-        elif choice == "4": #print("4. Delete a List")
+
+        elif choice == "5": #print("5. Delete a List")
             board.delete_task_list()
             board.save_to_file()
 
    
-        elif choice == "5": #print("5. Add a card")
+        elif choice == "6": #print("6. Add a card")
             board.add_card_to_task_list()
             board.save_to_file()
                     
             
-        elif choice == "6": #print("6. Edit a card")
+        elif choice == "7": #print("7. Edit a card")
             print(board)
             board.Edit_card_to_task_list()
             board.save_to_file()
 
 
-        elif choice == "7": #print("7. Delete a card")
+        elif choice == "8": #print("8. Delete a card")
             print(board)
             board.delete_card()
             board.save_to_file()
 
 
-        elif choice == "8": #print("8. Move card to another list")
+        elif choice == "9": #print("9. Move card to another list")
             print(board)
             board.move_card()
             print(board)
             board.save_to_file()
 
 
-        elif choice == "9":  #print("9. Exit")
+        elif choice == "10":  #print("10. Exit")
             board.save_to_file()
-            print("Board saved!!! See you later!")
+            print("See you later!")
             break
 
         else:
-            print("Invalid choice. Please select a number between 1 and 9.")
+            print("Invalid choice. Please select a number between 1 and 10.")
 
     print(board)
 

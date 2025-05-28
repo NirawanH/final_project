@@ -1,5 +1,5 @@
-from src.Card import Card
-from src.TaskList import TaskList
+from Card import Card
+from TaskList import TaskList
 from tabulate import tabulate
 import json
 import os
@@ -16,6 +16,35 @@ class Board():
 
     def add_task_list(self, task_list: TaskList):
         self.task_lists.append(task_list)
+
+    def edit_task_list(self) -> bool:
+        print("\nCurrent Task Lists:")
+        if not self.task_lists:
+            print("There is no list.")
+            return False
+    
+        for i, task_list in enumerate(self.task_lists, start=1):
+            print(f"{i}. {task_list.list_name}")
+
+        try:
+            index = int(input("Enter the number of the list to edit: "))
+            if 1 <= index <= len(self.task_lists):
+                selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
+                print(f"The list name '{selected_list.list_name}' is selected")
+                new_list_name = str(input("Enter the new name to change: "))
+                
+                task_list.edit_list_name(new_list_name)
+                print(f"List '{selected_list.list_name}' changed to '{new_list_name}")
+                return True
+            
+            else:
+                print("Invalid list number.")
+                return False
+            
+        except ValueError:
+            print("Please Enter a valid number.")
+            return False
+    
 
     def delete_task_list(self) -> bool:
         print("\nCurrent Task Lists:")
@@ -80,7 +109,7 @@ class Board():
                 if 1 <= index <= len(self.task_lists):
                     selected_list = self.task_lists[index - 1]
                     title = input("Enter card title: ")
-                    description = input("Enter card description: ")
+                    description = input("Enter card description, or leave blank: ")
                     deadline = input("Enter deadline (optional: (DD/MM/YYYY HH:MM, leave blank to keep current)): ")
                     card = Card(title, description, deadline)
                     selected_list.add_card(card)

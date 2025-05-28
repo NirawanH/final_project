@@ -5,6 +5,9 @@ class TaskList:
     def __init__(self, list_name: str):
         self.list_name = list_name
         self.cards = [] #create list to collect card
+
+    def edit_list_name(self, new_list_name: str):
+        self.list_name = new_list_name
     
     def add_card(self, card: Card):
         self.cards.append(card) #add card to the list
