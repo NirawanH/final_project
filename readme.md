@@ -14,6 +14,13 @@ This is a task management board written in Python. You can create task lists (li
 - Includes unit tests for all core features
 
 ---
+## Screenshots
+
+### CLI Interface
+![Main Menu](images/interface.png)
+
+### Board View with Cards
+![Board View](images/view_board.png)
 
 ## Requirements
 
