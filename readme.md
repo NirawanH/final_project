@@ -85,7 +85,7 @@ pytest
 ## Acknowledgements
 
 - This project was developed using Python and external libraries including `tabulate`, `pytest`, etc.
-- AI assistance (e.g., ChatGPT) was used to:
+- AI assistance (ChatGPT) was used to:
   - Help debug and refactor code
   - Clarify Python concepts
   - Guide project structure and unit testing

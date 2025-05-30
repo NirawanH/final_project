@@ -1,15 +1,12 @@
-# =====================================
+
 # Ignore compiled Python files
-# =====================================
 __pycache__/
 *.py[cod]
 
 # Ignore VSCode workspace files
 *.code-workspace
 
-# =====================================
 # Ignore everything by default
-# =====================================
 *
 
 # But not these files/folders
