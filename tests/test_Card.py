@@ -90,3 +90,36 @@ def test_card_to_from_dict():
     assert save.description == card.description
     assert save.deadline == card.deadline
     assert save.card_id == card.card_id
+
+def test_to_dict_with_deadline():
+    card = Card("Final Project", "Details")
+    card.set_deadline("06/06/2025 23:59")
+    card_dict = card.to_dict()
+
+    assert card_dict["card_id"] == card.card_id
+    assert card_dict["title"] == "Final Project"
+    assert card_dict["description"] == "Details"
+    assert card_dict["deadline"] == card.deadline.isoformat()
+
+
+def test_to_dict_with_no_deadline():
+    card = Card("Final Project", "Details", None)
+    card_dict = card.to_dict()
+
+    assert card_dict["card_id"] == card.card_id
+    assert card_dict["title"] == "Final Project"
+    assert card_dict["description"] == "Details"
+    assert card_dict["deadline"] == None
+
+def test_from_dict():
+    data = {
+        "card_id" : 5,
+        "title" : "Project",
+        "description" : "Python",
+        "deadline" : "2025-06-06T23:59" #ISO format
+    }
+    card = Card.from_dict(data)
+    assert card.card_id == 5
+    assert card.title == "Project"
+    assert card.description == "Python"
+    assert card.deadline == datetime(2025, 6, 6, 23, 59)
