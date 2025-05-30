@@ -2,6 +2,7 @@ import pytest
 from src.Card import Card
 from src.TaskList import TaskList
 from src.Board import Board
+from datetime import datetime
 
 @pytest.fixture(autouse=True)
 def reset_card_id():
@@ -78,6 +79,27 @@ def test_move_card():
     assert card not in todo.cards
     assert card in done.cards
 
+def test_to_dict():
+    board = Board("My Projects")
+    task_list1 = TaskList("To-do")
+    board.add_task_list(task_list1)
+    card = Card("Test", "Detail", "30/06/2025")
+    task_list1.add_card(card)
+
+    board_dict = board.to_dict()
+    assert board_dict["board_name"] == "My Projects"
+    assert len(board_dict["task_lists"]) == 1
+
+    task_list_data = board_dict["task_lists"][0]
+    assert task_list_data["list_name"] == "To-do"
+    assert len(task_list_data["cards"]) == 1
+
+    card_data = task_list_data["cards"][0]
+    assert card_data["title"] == "Test"
+    assert card_data["description"] == "Detail"
+    assert card_data["deadline"] == card.deadline.isoformat()
+
+
 def test_from_dict():
     board = Board("My Projects")
     task_list1 = TaskList("To-do")
@@ -91,4 +113,5 @@ def test_from_dict():
     assert len(new_board.task_lists) == 2
     assert new_board.task_lists[0].list_name == "To-do"
     assert new_board.task_lists[1].list_name == "Doing"
+
 
