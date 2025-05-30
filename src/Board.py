@@ -26,24 +26,23 @@ class Board():
         for i, task_list in enumerate(self.task_lists, start=1):
             print(f"{i}. {task_list.list_name}")
 
-        try:
-            index = int(input("Enter the number of the list to edit: "))
-            if 1 <= index <= len(self.task_lists):
-                selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
-                print(f"The list name '{selected_list.list_name}' is selected")
-                new_list_name = str(input("Enter the new name to change: "))
+        while True:
+            try:
+                index = int(input("Enter the number of the list to edit: "))
+                if 1 <= index <= len(self.task_lists):
+                    selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
+                    print(f"The list name '{selected_list.list_name}' is selected")
+                    new_list_name = str(input("Enter the new name to change: "))
+                    
+                    selected_list.edit_list_name(new_list_name)
+                    print(f"The list name changed to '{new_list_name}")
+                    return True
                 
-                selected_list.edit_list_name(new_list_name)
-                print(f"List '{selected_list.list_name}' changed to '{new_list_name}")
-                return True
-            
-            else:
-                print("Invalid list number.")
-                return False
-            
-        except ValueError:
-            print("Please Enter a valid number.")
-            return False
+                else:
+                    print("Invalid list number! Please try again.")
+                
+            except ValueError:
+                print("Invalid number! Please Enter a valid number.")
     
 
     def delete_task_list(self) -> bool:
@@ -55,8 +54,13 @@ class Board():
         for i, task_list in enumerate(self.task_lists, start=1):
             print(f"{i}. {task_list.list_name}")
 
-        try:
-            index = int(input("Enter the number of the list to delete: "))
+        while True:
+            try:
+                index = int(input("Enter the number of the list to delete: "))
+            except ValueError:
+                print("Invalid list number! Please enter a valid number.")
+                continue
+
             if 1 <= index <= len(self.task_lists):
                 selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
                 print(f"The list '{selected_list.list_name}' contains {len(task_list.cards)} card(s).")
@@ -70,13 +74,10 @@ class Board():
                 print(f"List '{selected_list.list_name}' deleted.")
                 return True
             
-            else:
-                print("Invalid list number.")
-                return False
-            
-        except ValueError:
-            print("Please Enter a valid number.")
-            return False
+            print("Invalid list number. Please try again.")
+
+                
+
 
 #Showing task_list inside task_lists (maybe to improve this funtion later for filter, but now I am using enumerate)
     def get_list(self, list_name: str) -> TaskList or None:
@@ -95,99 +96,107 @@ class Board():
     
     def add_card_to_task_list(self) -> bool:
         print("\nCurrent Task Lists:")
+        for i, task_list in enumerate(self.task_lists):
+            print(f"{i+1}. {task_list.list_name}")
+
         if not self.task_lists:
             print("--- There are no task lists ---\n     --- Please add a list before adding a card ---")
-            False
+            return False
 
-        else:
-            for i, task_list in enumerate(self.task_lists):
-                print(f"{i+1}. {task_list.list_name}")
-                continue
-
+        while True:
             try:
                 index = int(input("Enter the number of the list to add: "))
-                if 1 <= index <= len(self.task_lists):
-                    selected_list = self.task_lists[index - 1]
-                    title = input("Enter card title: ")
-                    description = input("Enter card description, or leave blank: ")
-                    deadline = input("Enter deadline (optional: (DD/MM/YYYY HH:MM, leave blank to keep current)): ")
-                    card = Card(title, description, deadline)
-                    selected_list.add_card(card)
-                
-                else:
-                    print("Invalid list number.")
-                    return False
-                
             except ValueError:
-                print("Please Enter a valid number.")
-                return False
+                print("Invalid list number! Please enter a valid number.")
+                continue
 
-            print(f"Card added with ID [{card.card_id}].")
-            True        
+            if 1 <= index <= len(self.task_lists):
+                selected_list = self.task_lists[index - 1]
+
+                title = input("Enter card title: ")
+                description = input("Enter card description, or leave blank: ")
+                deadline = input("Enter deadline (optional: (DD/MM/YYYY HH:MM, leave blank to keep current)): ")
+                card = Card(title, description, deadline)
+                selected_list.add_card(card)
+                print(f"Card added with ID [{card.card_id}].")
+                return True 
+
+            print("Invalid list number. Please try again.")
+                
+
 
 
     def Edit_card_to_task_list(self) -> bool:
-        try:
-            choose_card_id = int(input("Enter card ID to edit: "))
+        while True:
+            try:
+                choose_card_id = int(input("Enter card ID to edit: "))
 
-        except ValueError:
-            print("Invalid input. Please enter a valid card ID number.")
-            return False
+            except ValueError:
+                print("Invalid card ID number! Please enter a valid card ID number.")
+                continue
 
-        task_list, card = self.find_card(choose_card_id)
-        if not card:
-            print("Card not found.")
-            return False
+            task_list, card = self.find_card(choose_card_id)
+            if not card:
+                print("Card not found! Please enter a valid card ID number. ")
+                continue
 
-        print(f"Editing card [{card.card_id}]: {card.title}")
-        new_title = input("New title (leave blank to keep current): ")
-        new_desc = input("New description (leave blank to keep current): ")
-        new_deadline = input("New deadline (DD/MM/YYYY HH:MM, leave blank to keep current): ")
+            deadline_str = card.deadline.strftime('%a %d/%m/%Y %H:%M') if card.deadline else None
+            print(f"Editing card [{card.card_id}]: \n'Title:' {card.title}\n'Description:' {card.description}\n'Deadline: {deadline_str}'")
 
-        if new_title:
-            card.edit_title(new_title)
-        if new_desc:
-            card.edit_description(new_desc)
-        if new_deadline:
-            card.set_deadline(new_deadline)
-        print("Card updated.")
-        return True
- 
+            new_title = input("New title (leave blank to keep current): ")
+            new_desc = input("New description (leave blank to keep current): ")
+            new_deadline = input("New deadline (DD/MM/YYYY HH:MM, leave blank to keep current): ")
+
+            if new_title:
+                card.edit_title(new_title)
+            if new_desc:
+                card.edit_description(new_desc)
+            if new_deadline:
+                card.set_deadline(new_deadline)
+
+            print("Card updated.")
+            return True
+
 
     
     def delete_card(self) -> bool:
-        try:
-            card_id = int(input("Enter card ID to delete: "))
-        except ValueError:
-            print("Invalid input. Please enter a valid card ID number.")
-            return False
-        task_list, card = self.find_card(card_id)
+        while True:
+            try:
+                card_id = int(input("Enter card ID to delete: "))
 
-        if card:
-            task_list.remove_card(card) 
-            print(f"Card with ID {card_id} deleted.")
-            return True
-        else:
-            print(f"No card with ID {card_id} found.")
-            return False
+            except ValueError:
+                print("Invalid card ID number! Please enter a valid card ID number.")
+                continue
+
+            task_list, card = self.find_card(card_id)
+
+            if card:
+                task_list.remove_card(card) 
+                print(f"Card with ID {card_id} deleted.")
+                return True
+            else:
+                print(f"No card with ID {card_id} found.")
+                return False
 
     
     def move_card(self) -> bool:
         #1. Choose card_id
-        try:
-            choose_card_id = int(input("Enter card ID to move: "))
-        except ValueError:
-            print("Please enter a valide card ID (number).")
-            return False
-        
-        # Find the choosed card and the source list
-        source_list, card = self.find_card(choose_card_id) 
+        while True:
+            try:
+                choose_card_id = int(input("Enter card ID to move: "))
+            except ValueError:
+                print("Invalid card ID number! Please enter a valide card ID (number).")
+                continue
+            
+            # Find the choosed card and the source list
+            source_list, card = self.find_card(choose_card_id) 
 
-        if not card:
-            print(f"Card with ID {choose_card_id} not found.")
-            return False
-        
-        print(f"Found card in list: '{source_list.list_name}'")
+            if not card:
+                print(f"Card with ID {choose_card_id} not found. Please enter a valide card ID (number)")
+                continue
+
+            print(f"Found card in list: '{source_list.list_name}'")
+            break
 
 
         #Show other task lists for selection (not show the source list)
@@ -200,26 +209,27 @@ class Board():
             print("No other lists available to move the card to.")
             return False
         
-        print("\nAvailable List to move:")
-        for i, task_list in lists_to_choose:
-            print(f"{i}. {task_list.list_name}")
+        else:
+            print("\nAvailable List to move:")
+            for i, task_list in lists_to_choose:
+                print(f"{i}. {task_list.list_name}")
 
-        try:
-            index_of_target_list = int(input("Enter the number of the target list: "))
-            for i, target_list in lists_to_choose:
-                if index_of_target_list == i:
-                    source_list.remove_card(card)
-                    target_list.add_card(card)
-                    print(f"Card '{card.title}' moved to list '{target_list.list_name}'.")
-                    return True
-                
-            print("Invalide selections.")
-            return False
-        
-        except ValueError:
-            print("Please enter a valid number.")
-            return False
-        
+            while True:
+                try:
+                    index_of_target_list = int(input("Enter the number of the target list: "))
+                except ValueError:
+                    print("Please enter a valid number.")
+                    continue
+
+                for i, target_list in lists_to_choose:
+                    if index_of_target_list == i:
+                        source_list.remove_card(card)
+                        target_list.add_card(card)
+                        print(f"Card ID [{card.card_id}] '{card.title}' moved to list '{target_list.list_name}'.")
+                        return True
+                    
+                print("Invalid selection.")
+            
 
     def __str__(self):
         output = [f"\n------- Board: {self.board_name} -------\n"]

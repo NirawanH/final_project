@@ -25,7 +25,7 @@ class Card:
 
 #Set deadline of the card
     def set_deadline(self, date_str: str):
-        for fmt in ("%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M", "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y"): #(DD/MM/YYYY HH:MM, YYYY-MM-DD HH:MM, YYYY-MM-DD, YYYY/MM/DD, DD/MM/YYYY)
+        for fmt in ("%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M", "%d-%m-%Y %H:%M" , "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y", "%d-%m-%Y"): #(DD/MM/YYYY HH:MM, YYYY-MM-DD HH:MM, DD-MM-YYYY HH:MM, YYYY-MM-DD, YYYY/MM/DD, DD/MM/YYYY, DD-MM-YYYY)
             try:
                 self.deadline = datetime.strptime(date_str, fmt)
                 return
@@ -57,8 +57,7 @@ class Card:
     def from_dict(data):
         card = Card(data["title"], data["description"])
         card.card_id = data["card_id"]
-        Card.id_counter = max(Card.id_counter, card.card_id +1)
-        deadline_str = data.get("deadline")
+        Card.id_counter = max(Card.id_counter, card.card_id +1) #next new card gets a unique ID
         if data["deadline"]:
             card.deadline = datetime.fromisoformat(data["deadline"])
         return card

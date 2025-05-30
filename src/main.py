@@ -86,8 +86,7 @@ def main():
 
         else:
             print("Invalid choice. Please select a number between 1 and 10.")
-
-    print(board)
+ 
 
 if __name__ == "__main__":
     main()
