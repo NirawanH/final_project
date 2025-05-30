@@ -18,12 +18,6 @@ This is a task management board written in Python. You can create task lists (li
 ## Requirements
 
 Make sure you have Python 3.10+ installed.  
-Then install the required packages using:
-
-```bash
-pip install -r requirements.txt
-```
-
 > Tip: It’s recommended to use a virtual environment.
 
 ```bash
@@ -34,7 +28,11 @@ python -m venv myenv
 # macOS/Linux
 source myenv/bin/activate
 ```
+Then install the required packages using:
 
+```bash
+pip install -r requirements.txt
+```
 ---
 
 ## How to Run
@@ -82,6 +80,20 @@ pytest
 - Uses JSON for data persistence (`board_data.json`)
 - `tabulate` is used to format board/card tables
 - Project is organized using object-oriented design
+
+
+## Acknowledgements
+
+- This project was developed using Python and external libraries including `tabulate`, `pytest`, etc.
+- AI assistance (e.g., ChatGPT) was used to:
+  - Help debug and refactor code
+  - Clarify Python concepts
+  - Guide project structure and unit testing
+- Online resources consulted:
+  - [Python documentation](https://docs.python.org/3/)
+  - [Tabulate documentation](https://pypi.org/project/tabulate/)
+  - [GeeksforGeeks Python Tutorials](https://www.geeksforgeeks.org/)
+  - [W3Schools Python Guide](https://www.w3schools.com/python/)
 
 
 
