@@ -77,3 +77,18 @@ def test_move_card():
 
     assert card not in todo.cards
     assert card in done.cards
+
+def test_from_dict():
+    board = Board("My Projects")
+    task_list1 = TaskList("To-do")
+    board.add_task_list(task_list1)
+    task_list2 = TaskList("Doing")
+    board.add_task_list(task_list2)
+
+    old_board = board.to_dict()
+    new_board = Board.from_dict(old_board)
+    assert new_board.board_name == "My Projects"
+    assert len(new_board.task_lists) == 2
+    assert new_board.task_lists[0].list_name == "To-do"
+    assert new_board.task_lists[1].list_name == "Doing"
+
