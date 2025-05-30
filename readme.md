@@ -17,7 +17,7 @@ This is a task management board written in Python. You can create task lists (li
 ## Screenshots
 
 ### CLI Interface
-![Main Menu](images/interface.png)
+![Main Menu](images/Interface.png)
 
 ### Board View with Cards
 ![Board View](images/view_board.png)
