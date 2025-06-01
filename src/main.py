@@ -67,15 +67,12 @@ def main():
 
 
         elif choice == "8": #print("8. Delete a card")
-            print(board)
             board.delete_card()
             board.save_to_file()
 
 
         elif choice == "9": #print("9. Move card to another list")
-            print(board)
             board.move_card()
-            print(board)
             board.save_to_file()
 
 

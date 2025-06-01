@@ -33,6 +33,10 @@ class Board():
                     selected_list = self.task_lists[index - 1] #it needs to set to -1 because the real index start from 0 but the user will see it start from 1
                     print(f"The list name '{selected_list.list_name}' is selected")
                     new_list_name = str(input("Enter the new name to change: "))
+
+                    if new_list_name == "":
+                        print("The list name did not change.")
+                        return False
                     
                     selected_list.edit_list_name(new_list_name)
                     print(f"The list name changed to '{new_list_name}")
@@ -127,6 +131,10 @@ class Board():
 
 
     def Edit_card_to_task_list(self) -> bool:
+        if len(self.task_lists) == 0:
+            print("***There are no cards to edit.***")
+            return False
+        
         while True:
             try:
                 choose_card_id = int(input("Enter card ID to edit: "))
@@ -160,6 +168,10 @@ class Board():
 
     
     def delete_card(self) -> bool:
+        if len(self.task_lists) == 0:
+            print("***There are no cards to edit.***")
+            return False
+
         while True:
             try:
                 card_id = int(input("Enter card ID to delete: "))
@@ -180,6 +192,9 @@ class Board():
 
     
     def move_card(self) -> bool:
+        if len(self.task_lists) == 0:
+            print("***There are no cards to edit.***")
+            return False
         #1. Choose card_id
         while True:
             try:

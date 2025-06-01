@@ -1,4 +1,4 @@
-# Task management Board
+# Task Board Manager
 
 This is a task management board written in Python. You can create task lists (like "To Do", "In Progress", "Done") and add/edit/move cards within those lists — similar to Trello, but entirely in your terminal.
 
