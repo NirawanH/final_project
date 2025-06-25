@@ -102,7 +102,7 @@ pytest
   - [GeeksforGeeks Python Tutorials](https://www.geeksforgeeks.org/)
   - [W3Schools Python Guide](https://www.w3schools.com/python/)
 
-You can find my Python Intermediate Certificate here: [Python Intermediate Certificate (Honours)](./Certificate of Achievement with Honours - Nirawan Hmanthong.pdf)
+You can find my Python Intermediate Certificate here: [Python Intermediate Certificate (Honours)](./Certificate_of_Achievement_with_Honours_Nirawan_Hmanthong.pdf)
 
 
 
